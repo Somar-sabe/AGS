@@ -3,15 +3,15 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const Product = require("./product.model");
 const app = express();
-const port = process.env.PORT || 5001;
-
+const port = process.env.PORT || 5002;
 const uri = "mongodb+srv://somar_96:0934491127sS@cluster0.zh1ifjm.mongodb.net/interviewsystem?retryWrites=true&w=majority";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => console.log("MongoDB connected"))
 .catch(err => console.log(err));
-app.use(cors());
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+app.use(cors());
+app.use(express.json());
+
 app.post("/products", (req, res) => {   
     const product = new Product({
         category: req.body.category,
@@ -21,16 +21,17 @@ app.post("/products", (req, res) => {
         name: req.body.name,
         description: req.body.description,
         capacity: req.body.capacity,
-        image: req.body.picture,
-        price: req.body.Netprice,
-        netweight: req.body.Netweight,
-        grossWeight: req.body.Grossweight,
-        palletSize: req.body.WareHouse,
-        bl: {
+        image: req.body.image,
+        price: req.body.price,
+        netWeight: req.body.netWeight,
+        grossWeight: req.body.grossWeight,
+        palletSize: req.body.palletSize,
+        bl: [{
            code: req.body.code,
-            qty: req.body.qty,
-            date: req.body.date
-        }
+           qty: req.body.qty,
+           date: req.body.date,
+           wareHouse: req.body.wareHouse
+        }]
       });
     
       product
@@ -48,20 +49,5 @@ app.post("/products", (req, res) => {
           });
         });
     });
-    const http = require('http');
 
-
-const requestHandler = (request, response) => {
-  console.log(request.url);
-  response.end('Hello Node.js Server!');
-};
-
-const server = http.createServer(requestHandler);
-
-server.listen(port, (err) => {
-  if (err) {
-    return console.log('Something went wrong:', err);
-  }
-
-  console.log(`Server is listening on ${port}`);
-});
+app.listen(port, () => console.log(`Server running on port ${port}`));
