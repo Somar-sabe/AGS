@@ -9,7 +9,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => console.log("MongoDB connected"))
 .catch(err => console.log(err));
 
-app.use(cors());
+app.use(cors({ origin: "https://agta.onrender.com" }));
 app.use(express.json());
 
 app.post("/products", (req, res) => {   
