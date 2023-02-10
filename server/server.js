@@ -12,13 +12,19 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 app.use(cors({ origin: "https://agta.onrender.com" }));
 app.use(express.json());
 
-app.post("/products", (req, res) => {   
+app.post("/products", (req, res) => { 
+    const requiredFields = ['category', 'country', 'company', 'brand', 'name', 'description', 'capacity', 'image', 'netWeight', 'grossWeight', ];
+    for (let i = 0; i < requiredFields.length; i++) {
+      if (!(requiredFields[i] in req.body)) {
+        return res.status(400).send(`Missing field: ${requiredFields[i]}`);
+      }
+    }  
     const product = new Product({
         category: req.body.category,
         country: req.body.country,
         company: req.body.company,
         brand: req.body.brandname,
-        name: req.body.name,
+        code: req.body.name,
         description: req.body.description,
         capacity: req.body.capacity,
         image: req.body.image,
@@ -26,28 +32,24 @@ app.post("/products", (req, res) => {
         netWeight: req.body.netWeight,
         grossWeight: req.body.grossWeight,
         palletSize: req.body.palletSize,
-        bl: [{
-           code: req.body.code,
-           qty: req.body.qty,
-           date: req.body.date,
-           wareHouse: req.body.wareHouse
-        }]
-      });
+        bl: req.body.bl
+        
+    });
     
-      product
+    product
         .save()
         .then(result => {
-          res.status(201).json({
+            res.status(201).json({
             message: "Product created successfully",
             product: result
-          });
+            });
         })
         .catch(err => {
-          console.log(err);
-          res.status(500).json({
+            console.log(err);
+            res.status(500).json({
             error: err
-          });
+            });
         });
-    });
+});
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
