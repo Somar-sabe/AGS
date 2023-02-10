@@ -1,4 +1,3 @@
-// product.model.js
 const mongoose = require("mongoose");
 const productSchema = mongoose.Schema({
     category: { type: String, required: true },
@@ -7,7 +6,7 @@ const productSchema = mongoose.Schema({
     brand: { type: String, required: true },
     name: { type: String, required: true },
     description: { type: String, required: true },
-    price: { type: String },
+    price: { type: Number },
     capacity: { type: Number, required: true },    
     image: { type: String },
     netweight: { type: Number, required: true },
@@ -15,9 +14,9 @@ const productSchema = mongoose.Schema({
     palletSize:{ type: Number, required: true },
     bl:[{
         code: { type: String, required: true },
-        qty: {type: String, required: true},
+        qty: {type: Number, required: true},
         date:{type: Date ,required:true},
-        warehouse:{type:String,required:true}
+        warehouse:{type:String}
     }]
 });
 
