@@ -12,8 +12,8 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 app.use(cors({ origin: "https://agta.onrender.com" }));
 app.use(express.json());
 
-app.post("/products", (req, res) => { 
-    const requiredFields = ['category', 'country', 'company', 'brand', 'name', 'description', 'capacity', 'image', 'netWeight', 'grossWeight', ];
+app.post("https://agta.onrender.com/products", (req, res) => { 
+    const requiredFields = ['category', 'country', 'company', 'brand','description', 'capacity', 'image', 'price', 'netWeight', 'grossWeight', 'palatSizetSize', 'code', 'qty', 'date', 'wareHouse'];
     for (let i = 0; i < requiredFields.length; i++) {
       if (!(requiredFields[i] in req.body)) {
         return res.status(400).send(`Missing field: ${requiredFields[i]}`);
@@ -24,14 +24,14 @@ app.post("/products", (req, res) => {
         country: req.body.country,
         company: req.body.company,
         brand: req.body.brandname,
-        code: req.body.name,
+        code: req.body.code,
         description: req.body.description,
         capacity: req.body.capacity,
         image: req.body.image,
         price: req.body.price,
         netWeight: req.body.netWeight,
         grossWeight: req.body.grossWeight,
-        palletSize: req.body.palletSize,
+        palatSize: req.body.palatSize,
         bl: req.body.bl
         
     });
@@ -53,3 +53,4 @@ app.post("/products", (req, res) => {
 });
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
+
