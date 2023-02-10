@@ -44,10 +44,22 @@ app.post("/products", (req, res) => {
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({
-        error: err
+      if (err.name === "ValidationError") {
+      let error = {};
+      for (field in err.errors) {
+      error[field] = err.errors[field].message;
+      }
+      res.status(400).json({
+      error: error
       });
-    });
-});
+      } else {
+      res.status(500).json({
+      error: err
+      });
+      }
+      });
+      });
+      
+      
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
