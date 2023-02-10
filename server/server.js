@@ -12,8 +12,8 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 app.use(cors({ origin: "https://agta.onrender.com" }));
 app.use(express.json());
 
-app.post("https://agta.onrender.com/products", (req, res) => { 
-    const requiredFields = ['category', 'country', 'company', 'brand','description', 'capacity', 'image', 'price', 'netWeight', 'grossWeight', 'palatSize', 'code', 'qty', 'date', 'wareHouse'];
+app.post("/products", (req, res) => { 
+    const requiredFields = ['category', 'country', 'company', 'brand','description', 'capacity', 'image', 'price', 'netWeight', 'grossWeight', 'palletSize', 'code', 'qty', 'date', 'wareHouse'];
     for (let i = 0; i < requiredFields.length; i++) {
       if (!(requiredFields[i] in req.body)) {
         return res.status(400).send(`Missing field: ${requiredFields[i]}`);
@@ -53,4 +53,8 @@ app.post("https://agta.onrender.com/products", (req, res) => {
 });
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
-
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
