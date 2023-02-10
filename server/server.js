@@ -13,7 +13,7 @@ app.use(cors({ origin: "https://agta.onrender.com" }));
 app.use(express.json());
 
 app.post("https://agta.onrender.com/products", (req, res) => { 
-    const requiredFields = ['category', 'country', 'company', 'brand','description', 'capacity', 'image', 'price', 'netWeight', 'grossWeight', 'palatSizetSize', 'code', 'qty', 'date', 'wareHouse'];
+    const requiredFields = ['category', 'country', 'company', 'brand','description', 'capacity', 'image', 'price', 'netWeight', 'grossWeight', 'palatSizet', 'code', 'qty', 'date', 'wareHouse'];
     for (let i = 0; i < requiredFields.length; i++) {
       if (!(requiredFields[i] in req.body)) {
         return res.status(400).send(`Missing field: ${requiredFields[i]}`);
