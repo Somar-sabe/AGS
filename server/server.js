@@ -12,7 +12,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 app.use(cors({ origin: "https://agta.onrender.com" }));
 app.use(express.json());
 
-app.post("/products", (req, res) => { 
+app.post("/", (req, res) => { 
     const requiredFields = ['category', 'country', 'company', 'brand','description', 'capacity', 'image'];
     for (let i = 0; i < requiredFields.length; i++) {
       if (!(requiredFields[i] in req.body)) {
