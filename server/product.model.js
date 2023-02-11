@@ -1,21 +1,21 @@
 const mongoose = require("mongoose");
 const productSchema = mongoose.Schema({
-    category: { type: String },
-    country: { type: String },
-    company: { type: String },
-    brand: { type: String  },
-    description:{ type: String },
-    code: { type: String  },
+    category: { type: String, required: true },
+    country: { type: String, required: true },
+    company: { type: String, required: true },
+    brand: { type: String, required: true },
+    code: { type: String, required: true },
+    description: { type: String, required: true },
     price: { type: Number },
-    capacity: { type: Number  },    
+    capacity: { type: String, required: true },    
     image: { type: String },
-    netweight: { type: Number  },
-    grossWeight: { type: Number },
-    palatSize:{ type: Number },
+    netWeight: { type: Number, required: true },
+    grossWeight: { type: Number, required: true },
+    palatSize:{ type: Number, required: true },
     bl:[{
-        code: { type: String  },
-        qty: {type: Number},
-        date:{type: Date },
+        code: { type: String, required: true },
+        qty: {type: Number, required: true},
+        date:{type: String ,required:true},
         warehouse:{type:String}
     }]
 });
@@ -23,3 +23,4 @@ const productSchema = mongoose.Schema({
 const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;
+
