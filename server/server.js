@@ -12,6 +12,10 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   app.use(cors());
 app.use(express.json());
 
+app.get("/product" , (req,res) => {
+  res.send("Done");
+}
+
 app.post("/products", (req, res) => { 
   const requiredFields = ['category', 'country', 'company', 'brand','description', 'capacity', 'image', 'price', 'netWeight', 'grossWeight', 'palatSize'];
   for (let i = 0; i < requiredFields.length; i++) {
