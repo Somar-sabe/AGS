@@ -8,7 +8,7 @@ const uri = "mongodb+srv://somar_96:0934491127sS@cluster0.zh1ifjm.mongodb.net/in
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
-
+  mongoose.set('strictQuery', false)
   app.use(cors());
 app.use(express.json());
 
