@@ -1,3 +1,4 @@
+// product.model.js
 const mongoose = require("mongoose");
 const productSchema = mongoose.Schema({
     category: { type: String, required: true },
@@ -23,4 +24,3 @@ const productSchema = mongoose.Schema({
 const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;
-
