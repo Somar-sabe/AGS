@@ -9,10 +9,10 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
 
-app.use(cors({ origin: "https://agta.onrender.com/products" }));
+app.use(cors({ origin: "https://agta.onrender.com" }));
 app.use(express.json());
 
-app.post("/products", (req, res) => { 
+app.post("/", (req, res) => { 
   const requiredFields = ['category', 'country', 'company', 'brand','description', 'capacity', 'image', 'price', 'netWeight', 'grossWeight', 'palletSize'];
   for (let i = 0; i < requiredFields.length; i++) {
     if (!(requiredFields[i] in req.body)) {
@@ -60,6 +60,3 @@ app.post("/products", (req, res) => {
       });
       });
       
-      
-
-app.listen(port, () => console.log(`Server running on port ${port}`));
