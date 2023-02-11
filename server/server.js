@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const Product = require("./product.model");
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000; // added a default value for the port
 const uri = "mongodb+srv://somar_96:0934491127sS@cluster0.zh1ifjm.mongodb.net/interviewsystem?retryWrites=true&w=majority";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected"))
@@ -13,7 +13,7 @@ app.use(cors({ origin: "https://agta.onrender.com" }));
 app.use(express.json());
 
 app.post("/", (req, res) => { 
-  const requiredFields = ['category', 'country', 'company', 'brand','description', 'capacity', 'image', 'price', 'netWeight', 'grossWeight', 'palletSize'];
+  const requiredFields = ['category', 'country', 'company', 'brand','description', 'capacity', 'image', 'price', 'netWeight', 'grossWeight', 'palatSize'];
   for (let i = 0; i < requiredFields.length; i++) {
     if (!(requiredFields[i] in req.body)) {
       return res.status(400).send(`Missing field: ${requiredFields[i]}`);
@@ -60,3 +60,6 @@ app.post("/", (req, res) => {
       });
       });
       
+      
+
+app.listen(port, () => console.log(`Server running on port ${port}`));
