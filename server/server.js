@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const Product = require("./product.model");
 const app = express();
-const port = process.env.PORT || 3000; // added a default value for the port
+const port = 3001; // added a default value for the port
 const uri = "mongodb+srv://somar_96:0934491127sS@cluster0.zh1ifjm.mongodb.net/interviewsystem?retryWrites=true&w=majority";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected"))
@@ -12,7 +12,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   app.use(cors());
 app.use(express.json());
 
-app.post("/", (req, res) => { 
+app.post("/products", (req, res) => { 
   const requiredFields = ['category', 'country', 'company', 'brand','description', 'capacity', 'image', 'price', 'netWeight', 'grossWeight', 'palatSize'];
   for (let i = 0; i < requiredFields.length; i++) {
     if (!(requiredFields[i] in req.body)) {
@@ -59,3 +59,7 @@ app.post("/", (req, res) => {
       }
       });
       });
+      
+      
+
+app.listen(port, () => console.log(`Server running on port ${port}`));
